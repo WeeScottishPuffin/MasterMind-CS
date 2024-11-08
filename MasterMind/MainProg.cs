@@ -6,7 +6,7 @@ namespace MasterMind
 {
     public class MainProg
     {
-        private static void clear()
+        private static void Clear()
         {
             for (int j = 0; j < 50; ++j)
             {
@@ -35,10 +35,10 @@ namespace MasterMind
             //Misc variables
             string guesslog;
             int guessnum = -1;
-            string[] coloursShort = Colours.ColourPairs().Keys.ToArray<string>();
+            string[] coloursShort = [.. Colours.ColourPairs().Keys];
 
             //Generate the solution
-            Random random = new Random();
+            Random random = new();
             for (int i = 0; i < LENGTH; i++)
             {
                 solution[i] = coloursShort[random.Next(1, coloursShort.Length)];
@@ -46,12 +46,12 @@ namespace MasterMind
             //Test
             //Console.WriteLine(solution[0] + solution[1] + solution[2] + solution[3]);
             //Splash screen
-            clear();
+            Clear();
             Console.WriteLine(SPLASH);
             Console.WriteLine("\nBy ScottishPuffin (Naut van der Winden)");
             Console.Write("Press <RETURN> to start");
             Console.ReadLine();
-            clear();
+            Clear();
             //Mainloop
             for (int guessn = 0; guessn < TURNS; guessn++)
             {
@@ -62,7 +62,7 @@ namespace MasterMind
                     guesslog = Visualiser.VisualisedGuess(LENGTH, guesses, results, guessn);
                     while (!coloursShort.Contains(guess_) && !"e".Equals(guess_))
                     {
-                        clear();
+                        Clear();
                         Console.WriteLine(guesslog);
                         Console.WriteLine("Guess " + (guessn + 1) + "/" + TURNS + ":");
                         Console.WriteLine("What colour for position " + (j + 1) + " (\u001B[31m[R]ed, \u001B[32m[G]reen, \u001B[33m[Y]ellow, \u001B[34m[B]lue, \u001B[35m[M]agenta, \u001B[36m[C]yan\u001B[0m or [E]xit):");
@@ -104,7 +104,7 @@ namespace MasterMind
                 Console.WriteLine();
             }
             //Check if you won or lost
-            clear();
+            Clear();
             guesslog = Visualiser.VisualisedGuess(LENGTH, guesses, results, guessnum);
             Console.WriteLine(guesslog);
             if (win)
@@ -121,6 +121,8 @@ namespace MasterMind
                     Console.Write(Colours.ColourPairs()[p]);
                 }
             }
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
         }
     }
 }
